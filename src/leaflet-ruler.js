@@ -51,6 +51,11 @@
       this._clickedLatLong = null;
       this._clickedPoints = [];
       this._totalLength = 0;
+
+      if (typeof this.options.onToggleMeasure === 'function') {
+        this.options.onToggleMeasure(this._choice)
+      }
+
       if (this._choice){
         this._map.doubleClickZoom.disable();
         L.DomEvent.on(this._map._container, 'keydown', this._escape, this);
