@@ -23,9 +23,11 @@ L.control.ruler().addTo(map);
 - Escape button finishes measurement path and starts a new measurement. Second push to escape turns off the plugin.
 - Double-click also finishes measurement path and starts a new measurement.
 - It's possible to add other units. No need to specify any option value to use defaults.
+- Pass in an `onToggleMeasure` function to listen for toggling the ruler on/off
 ```js
 var options = {
           position: 'topleft',
+          onToggleMeasure: (isActive) => console.log(isActive),   // true/false
           lengthUnit: {
             factor: 0.539956803,    //  from km to nm
             display: 'Nautical Miles',
@@ -34,7 +36,11 @@ var options = {
         };
 L.control.ruler(options).addTo(map);
 ```
- 
+
+## Clear C2 Differences
+- Default measurements are in miles
+- "Bearing" label changed to "Azimuth"
+- Entering/exiting "Ruler Mode" calls an `onToggleMeasure` function with the updated status (true === active, false === inactive). See "Usage" above for example.
 
 ## Default Options
 
@@ -51,7 +57,7 @@ options: {
       },
       lengthUnit: {                 // You can use custom length units. Default unit is kilometers.
         display: 'km',              // This is the display value will be shown on the screen. Example: 'meters'
-        decimal: 2,                 // Distance result will be fixed to this value. 
+        decimal: 2,                 // Distance result will be fixed to this value.
         factor: null                // This value will be used to convert from kilometers. Example: 1000 (from kilometers to meters)  
       },
       angleUnit: {
